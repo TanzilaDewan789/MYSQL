@@ -1,88 +1,97 @@
 #Creating database
-CREATE DATABASE parks_and_recreation;
+CREATE DATABASE park_and_recreation;
 
-#Using the database
-USE parks_and_recreation;
+#Using that database
+USE park_and_recreation;
 
-#Creating table
+#Creating tables & adding header
 CREATE TABLE employee_demographics (
 employee_id INT PRIMARY KEY,
-first_name VARCHAR(50),
+first_name VARCHAR (50),
 last_name VARCHAR(50),
 age INT NOT NULL,
-gender VARCHAR(50),
-birth_date DATE 
+gender VARCHAR (50),
+birth_date DATE);
+
+#Adding values to the table 
+INSERT INTO  employee_demographics (employee_id, first_name,last_name, age,gender,birth_date)
+VALUES
+(1,'Leslie', 'Knope', 44, 'Female','1979-09-25'),
+(3,'Tom', 'Haverford', 36, 'Male', '1987-03-04'),
+(4, 'April', 'Ludgate', 29, 'Female', '1994-03-27'),
+(5, 'Jerry', 'Gergich', 61, 'Male', '1962-08-28'),
+(6, 'Donna', 'Meagle', 46, 'Female', '1977-07-30'),
+(7, 'Ann', 'Perkins', 35, 'Female', '1988-12-01'),
+(8, 'Chris', 'Traeger', 43, 'Male', '1980-11-11'),
+(9, 'Ben', 'Wyatt', 38, 'Male', '1985-07-26'),
+(10, 'Andy', 'Dwyer', 34, 'Male', '1989-03-25'),
+(11, 'Mark', 'Brendanawicz', 40, 'Male', '1983-06-14'),
+(12, 'Craig', 'Middlebrooks', 37, 'Male', '1986-07-27');
+
+#showing the tables
+SELECT * FROM  employee_demographics;
+
+#Table 2
+CREATE TABLE employee_salary (
+  employee_id INT NOT NULL,
+  first_name VARCHAR(50) NOT NULL,
+  last_name VARCHAR(50) NOT NULL,
+  occupation VARCHAR(50),
+  salary INT,
+  dept_id INT
 );
 
-#Insert all the value into that table 
-INSERT INTO employee_demographics (employee_id, first_name, last_name, age, gender, birth_date)
+INSERT INTO employee_salary (employee_id, first_name, last_name, occupation, salary, dept_id)
 VALUES
-(1,"Lesile",'knope',44, 'Female','1979-09-25'),
-(2,'Tom', 'Haverford', 36, 'Male', '1987-03-04'),
-(3, 'April', 'Ludgate', 29, 'Female', '1994-03-27'),
-(4, 'Jerry', 'Gergich', 61, 'Male', '1962-08-28'),
-(5, 'Donna', 'Meagle', 46, 'Female', '1977-07-30'),
-(6, 'Ann', 'Perkins', 35, 'Female', '1988-12-01'),
-(7, 'Chris', 'Traeger', 43, 'Male', '1980-11-11'),
-(8, 'Ben', 'Wyatt', 38, 'Male', '1985-07-26'),
-(9, 'Andy', 'Dwyer', 34, 'Male', '1989-03-25'),
-(10, 'Mark', 'Brendanawicz', 40, 'Male', '1983-06-14'),
-(11, 'Craig', 'Middlebrooks', 37, 'Male', '1986-07-27');
+(1, 'Leslie', 'Knope', 'Deputy Director of Parks and Recreation', 75000,1),
+(2, 'Ron', 'Swanson', 'Director of Parks and Recreation', 70000,1),
+(3, 'Tom', 'Haverford', 'Entrepreneur', 50000,1),
+(4, 'April', 'Ludgate', 'Assistant to the Director of Parks and Recreation', 25000,1),
+(5, 'Jerry', 'Gergich', 'Office Manager', 50000,1),
+(6, 'Donna', 'Meagle', 'Office Manager', 60000,1),
+(7, 'Ann', 'Perkins', 'Nurse', 55000,4),
+(8, 'Chris', 'Traeger', 'City Manager', 90000,3),
+(9, 'Ben', 'Wyatt', 'State Auditor', 70000,6),
+(10, 'Andy', 'Dwyer', 'Shoe Shiner and Musician', 20000, NULL),
+(11, 'Mark', 'Brendanawicz', 'City Planner', 57000, 3),
+(12, 'Craig', 'Middlebrooks', 'Parks Director', 65000,1);
 
-#1.showing the entire table
-SELECT * FROM employee_demographics;
+SELECT * FROM employee_salary;
 
-#2.show only column- 2 & 4 (first_name, age)
-SELECT first_name, age FROM employee_demographics;
 
-#Show recent age and 10 years later age
-SELECT age, age+10 FROM employee_demographics;
+#table 3
+CREATE TABLE parks_departments (
+  department_id INT NOT NULL AUTO_INCREMENT,
+  department_name varchar(50) NOT NULL,
+  PRIMARY KEY (department_id)
+);
 
-#Remove duplicates values from the Column 5 or gender
-SELECT DISTINCT gender FROM  employee_demographics;
 
-#Where Clause
-#show only Female employee
-SELECT * FROM employee_demographics
-WHERE gender = "Female";
+INSERT INTO parks_departments (department_name)
+VALUES
+('Parks and Recreation'),
+('Animal Control'),
+('Public Works'),
+('Healthcare'),
+('Library'),
+('Finance');
 
-#show only male employee
-SELECT * FROM employee_demographics
-WHERE gender != "Female";
+SELECT * FROM parks_departments;
 
-#Check who born after 1985
-SELECT * FROM employee_demographics
-WHERE birth_date > "1985-01-01";
+#Showing all the tables
+SHOW TABLES;
 
-#Check who born before 1985
-SELECT * FROM employee_demographics
-WHERE birth_date < "1985-01-01";
+#showing the databse
+SHOW DATABASES;
 
-#Show only male who born before 1985 (AND)
-SELECT * FROM employee_demographics
-WHERE birth_date < "1985-01-01"
-AND gender = 'Male';
+#SHOWING 1ST & age
+SELECT first_name, age from employee_demographics;
 
-#Show who those who is born befor 1985 or male (OR)
-SELECT * FROM employee_demographics
-WHERE birth_date < '1985-01-01' OR gender ="Male";
+#age after 20 years 
+SELECT age, age+20 from employee_demographics;
 
-#Show only female those who born befor 1985 (OR NOT)
-SELECT * FROM employee_demographics
-WHERE birth_date < '1885-01-01' OR NOT gender = "Male";
+#PEDMAS => parenthesis, Exponent, division, multiplication, addition, substraction
+SELECT (age + 20)*10+10 AS CALCULATION FROM employee_demographics;
 
-#LIKE Statment
-SELECT * FROM employee_demographics
-WHERE first_name LIKE "Jer%";
-
-SELECT * FROM employee_demographics
-WHERE first_name LIKE '%er%';
-
-SELECT * FROM employee_demographics
-WHERE first_name LIKE 'a%';
-
-SELECT * FROM employee_demographics
-WHERE first_name LIKE 'a__';
-
-SELECT * FROM employee_demographics
-WHERE first_name LIKE 'a__%';
+#find all gender type 
+SELECT DISTINCT gender FROM employee_demographics;

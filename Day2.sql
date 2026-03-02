@@ -48,4 +48,10 @@ WHERE salary >= 50000;
 SELECT * FROM employee_salary
 WHERE salary <= 50000;
 
+SELECT occupation FROM employee_salary
+GROUP BY occupation;
+
+SELECT occupation, salary FROM employee_salary
+GROUP BY occupation, salary;
+
 
